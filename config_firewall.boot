@@ -5,9 +5,67 @@ firewall {
     ipv6-src-route disable
     ip-src-route disable
     log-martians enable
+    name WAN_IN {
+        default-action drop
+        description "packets from Internet to LAN"
+        enable-default-log
+        rule 1 {
+            action accept
+            description "allow established sessions"
+            log disable
+            protocol all
+            state {
+                established enable
+                invalid disable
+                new disable
+                related enable
+            }
+        }
+        rule 2 {
+            action drop
+            description "drop invalid state"
+            log disable
+            protocol all
+            state {
+                established disable
+                invalid enable
+                new disable
+                related disable
+            }
+        }
+    }
+    name WAN_LOCAL {
+        default-action drop
+        description "packets from Internet to the router"
+        enable-default-log
+        rule 1 {
+            action accept
+            description "allow established session to the router"
+            log disable
+            protocol all
+            state {
+                established enable
+                invalid disable
+                new disable
+                related enable
+            }
+        }
+        rule 2 {
+            action drop
+            description "drop invalid state"
+            log disable
+            protocol all
+            state {
+                established disable
+                invalid enable
+                new disable
+                related disable
+            }
+        }
+    }
     options {
         mss-clamp {
-            mss 1452
+            mss 1412
         }
     }
     receive-redirects disable
@@ -39,10 +97,18 @@ interfaces {
             description FTTH
             pppoe 0 {
                 default-route auto
+                firewall {
+                    in {
+                        name WAN_IN
+                    }
+                    local {
+                        name WAN_LOCAL
+                    }
+                }
                 mtu 1492
                 name-server auto
-                password secret
-                user-id fti/********
+                password rabzecg
+                user-id fti/fw2cghy
             }
         }
         vif 838 {
@@ -71,7 +137,22 @@ interfaces {
     loopback lo {
     }
 }
-
+port-forward {
+    auto-firewall enable
+    hairpin-nat enable
+    lan-interface eth2
+    lan-interface eth0
+    rule 1 {
+        description "VPN PPTP"
+        forward-to {
+            address 192.168.2.2
+            port 1723
+        }
+        original-port 1723
+        protocol tcp_udp
+    }
+    wan-interface pppoe0
+}
 protocols {
     igmp-proxy {
         interface br0 {
@@ -157,6 +238,10 @@ service {
                 start 192.168.2.21 {
                     stop 192.168.2.240
                 }
+                static-mapping CAM {
+                    ip-address 192.168.2.199
+                    mac-address 00:62:6e:4f:c0:fc
+                }
             }
         }
     }
@@ -198,6 +283,14 @@ system {
     }
     host-name ubnt
     login {
+        user c0mm0n {
+            authentication {
+                encrypted-password $6$r.C1USw7/Z$iJq/3kwxFNb/dF7CPJ3gJnHepKRsWaVgwMGQJTRVwm9snb5NMPYdcYrVm8F8ttGGnucPSoU0eYhY5FraFNVf2/
+                plaintext-password ""
+            }
+            full-name c0mm0n
+            level admin
+        }
         user ubnt {
             authentication {
                 encrypted-password $1$zKNoUbAo$gomzUbYvgyUMcD436Wo66.
@@ -245,6 +338,11 @@ system {
             }
             facility protocols {
                 level debug
+            }
+        }
+        host 192.168.2.2 {
+            facility all {
+                level notice
             }
         }
     }

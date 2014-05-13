@@ -19,14 +19,12 @@ and vod. Other services like gaming, radios are also reported to work.
 
 I've came up with the following setup for Orange&nbsp;_place_holder;**
 
-**
+!["Orange Setup](http://community.ubnt.com/t5/image/serverpage/image-id/25010i86619C9E81B7169F/image-size/original?v=mpbl-1&px=-1 "Orange Setup")
 
-![Orange](/t5/image/serverpage/image-id/25010i86619C9E81B7169F/image-
-size/original?v=mpbl-1&amp;px=-1)
+
 
 Edgemax setup
 
-* * *
 
 &nbsp;_place_holder; This is how we gonna set up the edgemax (based on the 3
 ports).

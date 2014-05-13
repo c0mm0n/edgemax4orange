@@ -89,9 +89,11 @@ Prepare and load the conf and assets.
 
 Now you should be able to load the conf in ssh :
 
-`configure`
-`load config-orange.boot`
-`commit`
+```
+configure
+load config-orange.boot
+commit
+```
 
 If everything went ok, you can `save` otherwise `discard` and start again,
 something's wrong.
@@ -136,9 +138,9 @@ One last thing for replays/vod, static routes.
 
 Use this gateway to setup your static routes like this 
 
-```route add -net 80.10.117.120/31 gateway 10.54.56.254
+```
+route add -net 80.10.117.120/31 gateway 10.54.56.254
 route add -net 81.253.206.0/24 gateway 10.54.56.254
-
 route add -net 81.253.210.0/23 gateway 10.54.56.254
 route add -net 81.253.214.0/23 gateway 10.54.56.254
 route add -net 172.19.20.0/23 gateway 10.54.56.254
@@ -146,17 +148,16 @@ route add -net 172.20.224.167/32 gateway 10.54.56.254
 route add -net 172.23.12.0/22 gateway 10.54.56.254
 route add -net 193.253.67.88/29 gateway 10.54.56.254
 route add -net 193.253.153.227/32 gateway 10.54.56.254
-route add -net 193.253.153.228/32 gateway 10.54.56.254```
+route add -net 193.253.153.228/32 gateway 10.54.56.254
+```
 
-**You must replace 10.54.56.254 with the value you deduced base on the DHCP IP of br0 and type this through ssh on the edgemax.**
+> You must replace 10.54.56.254 with the value you deduced base on the DHCP IP of br0 and type this through ssh on the edgemax.
 
 **Now reboot your Orange TV Box, everything should work fine.**
 
-**If everything is OK :**
+If everything is OK:
 
-**Copy / Move the "tv.sh" script in /config/scripts/post-config.d/ for automatic startup execution.**
+Copy / Move the "tv.sh" script in /config/scripts/post-config.d/ for automatic startup execution.
 
-**You'll probably need to (unsure, check the script rights)**
-
-  * **chmod +x tv.sh**
+You'll probably need to (unsure, check the script rights) `chmod +x tv.sh`
 

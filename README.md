@@ -68,7 +68,7 @@ Your TV mac address will be a1:b2:c3:d4:e5:fa
 
 I presume you are root, by doing :
 
-  * "sudo -i" or prefixing commands with "sudo"
+  * `sudo -i` or prefixing commands with `sudo`
 
 Prepare and load the conf and assets.
 
@@ -89,11 +89,11 @@ Prepare and load the conf and assets.
 
 Now you should be able to load the conf in ssh :
 
-  * configure
-  * load config-orange.boot
-  * commit
+`configure`
+`load config-orange.boot`
+`commit`
 
-If everything went ok, you can "save" otherwise "discard" and start again,
+If everything went ok, you can `save` otherwise `discard` and start again,
 something's wrong.
 
 Now it's time to plug ONT on port eth1, your LAN on eth0 or eth2, and reboot
@@ -103,12 +103,12 @@ If everything went ok, you now have Internet access through the edgemax.
 
 Now for the TV services
 
-  * Install vlan : either "apt-get install vlan" (untested but should be the easiest method)
-  * or get it there : [https://github.com/c0mm0n/edgemax4orange/blob/master/vlan_1.9-3_mips.deb](https://github.com/c0mm0n/edgemax4orange/blob/master/vlan_1.9-3_mips.deb) and install with "dpkg -i /config/scripts/post-config.d/vlan_1.9-3_mips.deb"
+  * Install vlan : either `apt-get install vlan` (untested but should be the easiest method)
+  * or get it there : [https://github.com/c0mm0n/edgemax4orange/blob/master/vlan_1.9-3_mips.deb](https://github.com/c0mm0n/edgemax4orange/blob/master/vlan_1.9-3_mips.deb) and install with `dpkg -i /config/scripts/post-config.d/vlan_1.9-3_mips.deb`
 
 Then, in ssh :
 
-  * modprobe 8021q
+`modprobe 8021q`
 
 
 Now is time to launch my custom script which will :
@@ -116,16 +116,15 @@ Now is time to launch my custom script which will :
   1. Set priorities on Vlans
   2. Launch DHCP on br0
   3. Launch igmpproxy
-  * sh /config/tv.sh
+
+`sh /config/tv.sh`
 
 Now you should :
 
   1. Have internet access
   2. Got an IP through dhcp on br0
 
-Check like this for the IP on br0
-
-  * show interfaces
+Check like this for the IP on br0 `show interfaces`
 
 !["interfaces"](https://www.evernote.com/shard/s1/sh/e6e3c4ab-15b5-43a4-ac30-2e29316400c3/8df6f38e2c8807482d576f56658f641c/deep/0/jb---ssh---80-24-et-jb---ssh---239-73.png)
 
@@ -137,16 +136,16 @@ One last thing for replays/vod, static routes.
 
 Use this gateway to setup your static routes like this 
 
-route add -net 80.10.117.120/31 gateway 10.54.56.254
-route add -net 81.253.206.0/24 gateway 10.54.56.254
-route add -net 81.253.210.0/23 gateway 10.54.56.254
-route add -net 81.253.214.0/23 gateway 10.54.56.254
-route add -net 172.19.20.0/23 gateway 10.54.56.254
-route add -net 172.20.224.167/32 gateway 10.54.56.254
-route add -net 172.23.12.0/22 gateway 10.54.56.254
-route add -net 193.253.67.88/29 gateway 10.54.56.254
-route add -net 193.253.153.227/32 gateway 10.54.56.254
-route add -net 193.253.153.228/32 gateway 10.54.56.254
+`route add -net 80.10.117.120/31 gateway 10.54.56.254`
+`route add -net 81.253.206.0/24 gateway 10.54.56.254`
+`route add -net 81.253.210.0/23 gateway 10.54.56.254`
+`route add -net 81.253.214.0/23 gateway 10.54.56.254`
+`route add -net 172.19.20.0/23 gateway 10.54.56.254`
+`route add -net 172.20.224.167/32 gateway 10.54.56.254`
+`route add -net 172.23.12.0/22 gateway 10.54.56.254`
+`route add -net 193.253.67.88/29 gateway 10.54.56.254`
+`route add -net 193.253.153.227/32 gateway 10.54.56.254`
+`route add -net 193.253.153.228/32 gateway 10.54.56.254`
 
 **You must replace 10.54.56.254 with the value you deduced base on the DHCP IP of br0 and type this through ssh on the edgemax.**
 

@@ -138,6 +138,7 @@ Use this gateway to setup your static routes like this
 
 ```route add -net 80.10.117.120/31 gateway 10.54.56.254
 route add -net 81.253.206.0/24 gateway 10.54.56.254
+
 route add -net 81.253.210.0/23 gateway 10.54.56.254
 route add -net 81.253.214.0/23 gateway 10.54.56.254
 route add -net 172.19.20.0/23 gateway 10.54.56.254

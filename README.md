@@ -72,18 +72,18 @@ I presume you are root, by doing :
 
 Prepare and load the conf and assets.
 
-  * Download&nbsp;_place_holder;[https://github.com/c0mm0n/edgemax4orange/blob/master/config-orange.boot](https://github.com/c0mm0n/edgemax4orange/blob/master/config-orange.boot)
+  * Download [https://github.com/c0mm0n/edgemax4orange/blob/master/config-orange.boot](https://github.com/c0mm0n/edgemax4orange/blob/master/config-orange.boot)
   * Edit lines 44 and 45 with your Orange logins (fti/xxxxx and password)
   * Upload file on edgemax in /config folder
 
 
-  * Download&nbsp;_place_holder;[https://github.com/c0mm0n/edgemax4orange/blob/master/dhclient.conf](https://github.com/c0mm0n/edgemax4orange/blob/master/dhclient.conf)
+  * Download [https://github.com/c0mm0n/edgemax4orange/blob/master/dhclient.conf](https://github.com/c0mm0n/edgemax4orange/blob/master/dhclient.conf)
   * Open in a text editor
   * Replace the xx:xx:xx:xx:xx:xx with the TV mac address deduced from the livebox one (the +4 one). the "1:" must stay.
   * Upload file on edgemax in /config folder
 
 
-  * Download&nbsp;_place_holder;[https://github.com/c0mm0n/edgemax4orange/blob/master/tv.sh](https://github.com/c0mm0n/edgemax4orange/blob/master/tv.sh)
+  * Download [https://github.com/c0mm0n/edgemax4orange/blob/master/tv.sh](https://github.com/c0mm0n/edgemax4orange/blob/master/tv.sh)
   * Upload file on edgemax in /config folder
 
 
@@ -104,7 +104,7 @@ If everything went ok, you now have Internet access through the edgemax.
 Now for the TV services
 
   * Install vlan : either "apt-get install vlan" (untested but should be the easiest method)
-  * or get it there :&nbsp;_place_holder;[https://github.com/c0mm0n/edgemax4orange/blob/master/vlan_1.9-3_mips.deb](https://github.com/c0mm0n/edgemax4orange/blob/master/vlan_1.9-3_mips.deb)&nbsp;_place_holder;and install with "dpkg -i&nbsp;_place_holder;/config/scripts/post-config.d/vlan_1.9-3_mips.deb"
+  * or get it there : [https://github.com/c0mm0n/edgemax4orange/blob/master/vlan_1.9-3_mips.deb](https://github.com/c0mm0n/edgemax4orange/blob/master/vlan_1.9-3_mips.deb) and install with "dpkg -i /config/scripts/post-config.d/vlan_1.9-3_mips.deb"
 
 Then, in ssh :
 
@@ -132,10 +132,10 @@ Check like this for the IP on br0
 One last thing for replays/vod, static routes.
 
   * Get the IP you got from the dhcp on br0
-  * Let's say this IP is&nbsp;_place_holder;10.54.56.154
-  * Change the last part with "254", we now have :&nbsp;_place_holder;10.54.56.254
+  * Let's say this IP is 10.54.56.154
+  * Change the last part with "254", we now have : 10.54.56.254
 
-Use this gateway to setup your static routes like this&nbsp;_place_holder;
+Use this gateway to setup your static routes like this 
 
 route add -net 80.10.117.120/31 gateway 10.54.56.254
 route add -net 81.253.206.0/24 gateway 10.54.56.254
@@ -148,13 +148,13 @@ route add -net 193.253.67.88/29 gateway 10.54.56.254
 route add -net 193.253.153.227/32 gateway 10.54.56.254
 route add -net 193.253.153.228/32 gateway 10.54.56.254
 
-**You must replace&nbsp;_place_holder;10.54.56.254 with the value you deduced base on the DHCP IP of br0 and type this through ssh on the edgemax.**
+**You must replace 10.54.56.254 with the value you deduced base on the DHCP IP of br0 and type this through ssh on the edgemax.**
 
 **Now reboot your Orange TV Box, everything should work fine.**
 
 **If everything is OK :**
 
-**Copy / Move the "tv.sh" script in&nbsp;_place_holder;/config/scripts/post-config.d/ for automatic startup execution.**
+**Copy / Move the "tv.sh" script in /config/scripts/post-config.d/ for automatic startup execution.**
 
 **You'll probably need to (unsure, check the script rights)**
 

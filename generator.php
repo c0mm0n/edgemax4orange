@@ -45,7 +45,6 @@ if ($_GET['download'] != 1){
     //echo "<pre>";
 }
 ?>
-
 firewall {
     all-ping enable
     broadcast-ping disable
@@ -389,6 +388,4 @@ system {
 if ($_GET['download'] != 1){
     //echo "</pre>";
 }
-
-
 ?>

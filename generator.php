@@ -42,7 +42,7 @@ if ($_GET['download'] == 1){
 
 
 if ($_GET['download'] != 1){
-    echo "<pre>";
+    //echo "<pre>";
 }
 ?>
 
@@ -387,7 +387,7 @@ system {
 /* Release version: v1.6.0beta1.4705702.140925.2253 */
 <?
 if ($_GET['download'] != 1){
-    echo "</pre>";
+    //echo "</pre>";
 }
 
 

@@ -250,8 +250,8 @@ system {
             level admin
         }
     }
-    name-server 8.8.8.8
-    name-server 8.8.4.4
+    name-server 208.67.222.222
+    name-server 208.67.220.220
     ntp {
         server 0.ubnt.pool.ntp.org {
         }

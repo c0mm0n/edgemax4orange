@@ -81,27 +81,6 @@ interfaces {
         description LAN1
         duplex auto
         speed auto
-        vif 835 {
-        }              
-        vif 838 {
-            bridge-group {
-                bridge br0
-            }
-            description TV
-        }
-        vif 840 {
-            bridge-group {
-                bridge br0
-            }
-            description TV
-            
-        }
-        vif 851 {
-            bridge-group {
-                bridge br0
-            }
-            description VoIP
-        }        
     }
     ethernet eth1 {
         description Internet
@@ -124,7 +103,6 @@ interfaces {
                 name-server auto
                 user-id fti/user
                 password secret
-                 
             }
         }
         vif 838 {
@@ -152,6 +130,26 @@ interfaces {
         description LAN2
         duplex auto
         speed auto
+        vif 835 {
+        }
+        vif 838 {
+            bridge-group {
+                bridge br0
+            }
+            description TV
+        }
+        vif 840 {
+            bridge-group {
+                bridge br0
+            }
+            description TV
+        }
+        vif 851 {
+            bridge-group {
+                bridge br0
+            }
+            description VoIP
+        }
     }
     loopback lo {
     }
@@ -214,7 +212,6 @@ service {
         secure-mode disable
         wan pppoe0
     }
-
     pppoe-server {
         dns-servers {
             server-1 80.10.246.2
@@ -232,10 +229,9 @@ service {
             start 192.168.2.210
             stop 192.168.2.220
         }
-        interface eth0.835
+        interface eth2.835
         mtu 1492
     }
-
 }
 system {
     config-management {
@@ -250,8 +246,8 @@ system {
             level admin
         }
     }
-    name-server 208.67.222.222
-    name-server 208.67.220.220
+    name-server 8.8.8.8
+    name-server 8.8.4.4
     ntp {
         server 0.ubnt.pool.ntp.org {
         }

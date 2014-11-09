@@ -79,11 +79,13 @@ interfaces {
     bridge br0 {
         address dhcp
         aging 300
+        description "WAN VIDEO"
         dhcp-options {
             client-option "send vendor-class-identifier &quot;sagem&quot;;"
-            client-option "send dhcp-client-identifier 1:00:00:00:00:00:00;"
             client-option "send user-class &quot;\047FSVDSL_livebox.MLTV.softathome.Livebox3&quot;;"
+            client-option "send dhcp-client-identifier 1:00:00:00:00:00:00;"
             default-route update
+            default-route-distance 210
             name-server update
         }
         hello-time 2
@@ -94,17 +96,27 @@ interfaces {
     }
     ethernet eth0 {
         address 192.168.1.1/24
-        description LAN1
+        description "LAN DEV"
         duplex auto
-        speed auto
-    }
-    ethernet eth1 {
-        description Internet
-        duplex auto
+        ip {
+        }
+        poe {
+            output off
+        }
         speed auto
         vif 835 {
-            address dhcp
-            description FTTH
+            description "LAN PPPoE"
+        }
+    }
+    ethernet eth1 {
+        description WAN
+        duplex auto
+        poe {
+            output off
+        }
+        speed auto
+        vif 835 {
+            description "WAN FTTH"
             pppoe 0 {
                 default-route auto
                 firewall {
@@ -119,38 +131,62 @@ interfaces {
                 name-server auto
                 user-id fti/user
                 password secret
-                 
             }
         }
         vif 838 {
             bridge-group {
                 bridge br0
             }
-            description TV
+            description "WAN TV"
             egress-qos "0:4 1:4 2:4 3:4 4:4 5:4 6:4 7:4"
         }
         vif 840 {
             bridge-group {
                 bridge br0
             }
-            description TV
+            description "WAN TV"
             egress-qos "0:5 1:5 2:5 3:5 4:5 5:5 6:5 7:5"
         }
         vif 851 {
-            description VoIP
-            egress-qos "0:6 1:6 2:6 3:6 5:6 6:6 7:6"
+            description "WAN VoIP"
+            egress-qos "0:6 1:6 2:6 3:6 4:6 5:6 6:6 7:6"
+            mtu 1500
         }
     }
     ethernet eth2 {
-        address 192.168.2.1/24
-        description LAN2
         duplex auto
+        poe {
+            output off
+        }
+        speed auto
+    }
+    ethernet eth3 {
+        duplex auto
+        poe {
+            output off
+        }
+        speed auto
+    }
+    ethernet eth4 {
+        duplex auto
+        poe {
+            output off
+        }
         speed auto
     }
     loopback lo {
     }
+    switch switch0 {
+        address 192.168.2.1/24
+        description LAN
+        mtu 1500
+        switch-port {
+            interface eth2
+            interface eth3
+            interface eth4
+        }
+    }
 }
-
 protocols {
     igmp-proxy {
         disable-quickleave
@@ -160,11 +196,10 @@ protocols {
             threshold 1
         }
         interface eth0 {
-            alt-subnet 0.0.0.0/0
-            role downstream
+            role disabled
             threshold 1
         }
-        interface eth2 {
+        interface switch0 {
             alt-subnet 0.0.0.0/0
             role downstream
             threshold 1
@@ -223,8 +258,8 @@ service {
                 default-router 192.168.1.1
                 dns-server 192.168.1.1
                 lease 86400
-                start 192.168.1.2 {
-                    stop 192.168.1.200
+                start 192.168.1.21 {
+                    stop 192.168.1.240
                 }
             }
         }
@@ -234,16 +269,21 @@ service {
                 default-router 192.168.2.1
                 dns-server 192.168.2.1
                 lease 86400
-                start 192.168.2.21 {
-                    stop 192.168.2.200
-                }
+            }
+        }
+        shared-network-name LAN3 {
+            authoritative disable
+            subnet 192.168.9.0/24 {
+                default-router 192.168.9.1
+                dns-server 192.168.9.1
+                lease 86400
             }
         }
     }
     dns {
         forwarding {
-            cache-size 1000
-            listen-on eth2
+            cache-size 0
+            listen-on switch0
             listen-on eth0
         }
     }
@@ -269,7 +309,7 @@ service {
     }
     upnp2 {
         listen-on eth0
-        listen-on eth2
+        listen-on switch0
         nat-pmp enable
         secure-mode disable
         wan pppoe0
@@ -339,4 +379,4 @@ system {
 
 /* Warning: Do not remove the following line. */
 /* === vyatta-config-version: "config-management@1:conntrack@1:cron@1:dhcp-relay@1:dhcp-server@4:firewall@5:ipsec@4:nat@3:qos@1:quagga@2:system@4:ubnt-pptp@1:ubnt-util@1:vrrp@1:webgui@1:webproxy@1:zone-policy@1" === */
-/* Release version: v1.6.0beta1.4705702.140925.2253 */
+/* Release version: v1.6.0.4716006.141031.1731 */

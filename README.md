@@ -1,7 +1,7 @@
 ## Edgemax Setup For Orange France FTTH
 
 > French version and support of this guide is here
- : https://lafibre.info/orange-tutoriels/en-cours-remplacer-sa-livebox-par-un-routeur-ubiquiti-edgemax/
+ : http://www.homelabs.fr
 
 ### Overview
 ***

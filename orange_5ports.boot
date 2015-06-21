@@ -84,6 +84,7 @@ interfaces {
             client-option "send vendor-class-identifier &quot;sagem&quot;;"
             client-option "send user-class &quot;\047FSVDSL_livebox.MLTV.softathome.Livebox3&quot;;"
             client-option "send dhcp-client-identifier 1:00:00:00:00:00:00;"
+            client-option "request subnet-mask, routers, rfc3442-classless-static-routes;"
             default-route update
             default-route-distance 210
             name-server update
@@ -203,48 +204,6 @@ protocols {
             alt-subnet 0.0.0.0/0
             role downstream
             threshold 1
-        }
-    }
-    static {
-        route 80.10.117.120/31 {
-            next-hop 0.0.0.0 {
-            }
-        }
-        route 81.253.206.0/24 {
-            next-hop 0.0.0.0 {
-            }
-        }
-        route 81.253.210.0/23 {
-            next-hop 0.0.0.0 {
-            }
-        }
-        route 81.253.214.0/23 {
-            next-hop 0.0.0.0 {
-            }
-        }
-        route 172.19.20.0/23 {
-            next-hop 0.0.0.0 {
-            }
-        }
-        route 172.20.224.167/32 {
-            next-hop 0.0.0.0 {
-            }
-        }
-        route 172.23.12.0/22 {
-            next-hop 0.0.0.0 {
-            }
-        }
-        route 193.253.67.88/29 {
-            next-hop 0.0.0.0 {
-            }
-        }
-        route 193.253.153.227/32 {
-            next-hop 0.0.0.0 {
-            }
-        }
-        route 193.253.153.228/32 {
-            next-hop 0.0.0.0 {
-            }
         }
     }
 }
